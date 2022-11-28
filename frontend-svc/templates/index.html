@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} NetInfo {% endblock %}
+{% block header %} Network Information {% endblock %}
+
+{% block body %}
+<div class="container">
+	<h2>IP Address</h2>
+	<p> {{ ip_json|safe }} </p>
+	<h2>Speed Test</h2>
+	<p> {{ speed_test|safe }} </p>
+	<h2>Domain Information Groper ---> to example.com</h2>
+	<p> {{ dns_json|safe }} </p>    
+</div>
+{% endblock %}

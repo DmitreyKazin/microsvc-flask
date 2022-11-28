@@ -7,6 +7,8 @@ services:
     container_name: ip-svc
     ports:
       - "5001:5001"
+    networks:
+      - backend-tier
     restart: always
     healthcheck:
       test: curl --fail http://localhost:5001/ipv4 || exit 1
@@ -20,6 +22,8 @@ services:
     container_name: speedtest-svc
     ports:
       - "5002:5002"
+    networks:
+      - backend-tier
     restart: always
     healthcheck:
       test: curl --fail http://localhost:5002/ || exit 1
@@ -33,6 +37,8 @@ services:
     container_name: dns-svc
     ports:
       - "5003:5003"
+    networks:
+      - backend-tier
     restart: always
     healthcheck:
       test: curl --fail http://localhost:5003/ || exit 1
@@ -46,6 +52,15 @@ services:
     container_name: web-svc
     ports:
       - "5000:5000"
+  backend-svc:
+    build:
+      context: ./backend-svc/
+    container_name: backend-svc
+    ports:
+      - "5000:5000"
+    networks:
+      - backend-tier
+      - frontend-tier
     depends_on:
       ip-svc:
         condition: service_healthy
@@ -54,3 +69,16 @@ services:
       dns-svc:
         condition: service_healthy
     restart: always
+  frontend-svc:
+    build:
+      context: ./frontend-svc/
+    container_name: frontend-svc
+    ports:
+      - "80:80"
+    networks:
+      - frontend-tier
+    depends_on:
+      - backend-svc
+networks:
+  backend-tier:
+  frontend-tier:
