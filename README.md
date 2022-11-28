@@ -1,4 +1,4 @@
-# Micro Service with Flask
+# Micro Services with Flask
 
 The purpose of this project is to practice microservices architecture along with Flask, docker and AWS.
 The application presents some information about user's network such as IPv4 address and Speed test statistics.
