@@ -13,4 +13,4 @@ RUN apk update && \
 
 COPY . /app
 
-CMD ["python", "app.py"]
+CMD gunicorn --bind 0.0.0.0:80 wsgi:app
