@@ -1,9 +1,11 @@
 # Micro Service with Flask
 
-The purpose of this project is to practice microservices architecture, to enable rapid, frequent and reliable 
-delivery of applications. The Flask application presents some network information generated with micro services. 
+The purpose of this project is to practice microservices architecture along with Flask, docker and AWS.
+The application presents some information about user's network such as IPv4 address and Speed test statistics.
+
 
 ## Micro Services 
+
 | SVC/Folder Name | Role | Port   
 | :---:   | :---:   | :---: 
 | ip-svc | fetches IPv4 using [ip_fy API](https://api.ipify.org?format=json) | 5001
@@ -26,3 +28,7 @@ docker-compose up
 # run the following command from the project directory
 docker-compose down
 ```
+
+## TO-DO
+
+- Deploy the application on AWS.
