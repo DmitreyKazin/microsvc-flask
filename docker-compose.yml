@@ -1,0 +1,44 @@
+---
+version: '3.8'
+services:
+  ip-svc:
+    build:
+      context: ./ip-svc/
+    container_name: ip-svc
+    ports:
+      - "5001:5001"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5001/ipv4 || exit 1"]
+  speedtest-svc:
+    build:
+      context: ./speedtest-svc/
+    container_name: speedtest-svc
+    ports:
+      - "5002:5002"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5002/ || exit 1"]
+  dns-svc:
+    build:
+      context: ./dns-svc/
+    container_name: dns-svc
+    ports:
+      - "5003:5003"
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5003/ || exit 1"]
+  web-svc:
+    build:
+      context: ./web-svc/
+    container_name: web-svc
+    ports:
+      - "5000:5000"
+    depends_on:
+      ip-svc:
+        condition: service_healthy
+      speedtest-svc:
+        condition: service_healthy
+      dns-svc:
+        condition: service_healthy
+    restart: always
