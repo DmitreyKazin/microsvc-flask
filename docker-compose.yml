@@ -72,7 +72,19 @@ services:
     networks:
       - frontend-tier
     depends_on:
-      - backend-svc
+      backend-svc:
+        condition: service_started
+  nginx-svc:
+    build:
+      context: ./nginx-svc/
+    container_name: nginx-svc
+    ports:
+      - 1337:80
+    networks:
+      - frontend-tier
+    depends_on:
+      frontend-svc:
+        condition: service_started
 networks:
   backend-tier:
   frontend-tier:
