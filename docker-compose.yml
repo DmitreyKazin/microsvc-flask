@@ -1,5 +1,5 @@
 ---
-version: '3.8'
+version: '3.9'
 services:
   ip-svc:
     build:
@@ -9,7 +9,11 @@ services:
       - "5001:5001"
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:5001/ipv4 || exit 1"]
+      test: curl --fail http://localhost:5001/ipv4 || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
   speedtest-svc:
     build:
       context: ./speedtest-svc/
@@ -18,7 +22,11 @@ services:
       - "5002:5002"
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:5002/ || exit 1"]
+      test: curl --fail http://localhost:5002/ || exit 1
+      interval: 10s
+      timeout: 60s
+      retries: 3
+      start_period: 10s
   dns-svc:
     build:
       context: ./dns-svc/
@@ -27,7 +35,11 @@ services:
       - "5003:5003"
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:5003/ || exit 1"]
+      test: curl --fail http://localhost:5003/ || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
   web-svc:
     build:
       context: ./web-svc/

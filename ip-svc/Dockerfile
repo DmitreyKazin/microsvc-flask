@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.8-alpine
 
 MAINTAINER Dmitrey Kazin
 
@@ -6,7 +6,9 @@ WORKDIR /app
 
 COPY ./requirements.txt /app/requirements.txt
 
-RUN pip install --upgrade pip && \
+RUN apk update && \
+    apk add curl && \
+    pip install --upgrade pip && \
     pip install -r requirements.txt
 
 COPY . /app
