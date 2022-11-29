@@ -10,7 +10,7 @@ The application presents some information about user's network such as IPv4 addr
 | :---:   | :---:   | :---: 
 | ip-svc | fetches IPv4 using [ip_fy API](https://api.ipify.org?format=json) | 5001
 | speedtest-svc | fetches speed test resoults using [speedtest-cli package](https://pypi.org/project/speedtest-cli/) | 5002
-| dns-svc | Domain Information Groper request results sent to "example.com" using [networkcalc API](https://networkcalc.com/api/dns/lookup/example.com) | 5003
+| dns-svc | DNS lookup to "example.com" using [networkcalc API](https://networkcalc.com/api/dns/lookup/example.com) | 5003
 | backend-svc | Communicates with ip, speedtest and dns microservices and forwards responses to frontend service, served by gunicorn | 5000
 | frontend-svc | Serves the web application using gunicorn production environment | 80
 | nginx-svc | Acts as a reverse proxy to hanlde client requests to frontend-svc | 1337
